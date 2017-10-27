@@ -38,6 +38,18 @@ namespace HairSalon.Models.Tests
     }
     // Above tests ensure following tests, equals method, and database connection are properly setup.
 
+    [TestMethod]
+    public void Save_SavesToDatabase_RestaurantList()
+    {
+      Client testClient = new Client("Charles Edeau", "619-883-0092", 1);
+      testClient.Save();
+      List<Client> result = Client.GetAll();
+      List<Client> testList = new List<Client>{testClient};
+
+      CollectionAssert.AreEqual(testList, result);
+    }
+    // Fulfills specs to add client, and view all clients.
+
 
 
   }

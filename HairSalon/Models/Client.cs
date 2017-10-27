@@ -19,6 +19,40 @@ namespace HairSalon.Models
       StylistId = stylistId;
     }
 
+
+    public void Save()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"INSERT INTO clients (name, phone, stylist_id) VALUES (@clientName, @clientPhone, @stylistId);";
+      //name
+      MySqlParameter clientName = new MySqlParameter();
+      clientName.ParameterName = "@clientName";
+      clientName.Value = this.Name;
+      cmd.Parameters.Add(clientName);
+      //phone
+      MySqlParameter clientPhone = new MySqlParameter();
+      clientPhone.ParameterName = "@clientPhone";
+      clientPhone.Value = this.Phone;
+      cmd.Parameters.Add(clientPhone);
+      //stylist id
+      MySqlParameter stylistId = new MySqlParameter();
+      stylistId.ParameterName = "@stylistId";
+      stylistId.Value = this.StylistId;
+      cmd.Parameters.Add(stylistId);
+
+      cmd.ExecuteNonQuery();
+      Id = (int)cmd.LastInsertedId;
+
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+    }
+
     public override bool Equals(System.Object otherClient)
     {
       if (!(otherClient is Client))
@@ -70,7 +104,7 @@ namespace HairSalon.Models
         int clientId = rdr.GetInt32(0);
         string clientName = rdr.GetString(1);
         string clientPhone = rdr.GetString(2);
-        int stylistId = rdr.GetInt32(4);
+        int stylistId = rdr.GetInt32(3);
 
         Client newClient = new Client(clientName, clientPhone, stylistId, clientId);
         allClients.Add(newClient);
