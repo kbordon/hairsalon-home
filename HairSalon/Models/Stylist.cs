@@ -19,6 +19,56 @@ namespace HairSalon.Models
       // HireDate = hireDate; string hireDate,
     }
 
+
+    // TODO: consider adding these if there is time;
+    // public void Delete()
+    // {
+    //   MySqlConnection conn = DB.Connection();
+    //   conn.Open();
+    //
+    //   var cmd = conn.CreateCommand() as MySqlCommand;
+    //   cmd.CommandText = "DELETE FROM cuisines WHERE id = @searchId;";
+    //   MySqlParameter searchId = new MySqlParameter();
+    //   searchId.ParameterName = "@searchId";
+    //   searchId.Value = this.Id;
+    //   cmd.Parameters.Add(searchId);
+    //
+    //   cmd.ExecuteNonQuery();
+    //
+    //   if (conn != null)
+    //   {
+    //     conn.Dispose();
+    //   }
+    // }
+    //
+    // public void UpdateName(string newName)
+    // {
+    //   MySqlConnection conn = DB.Connection();
+    //   conn.Open();
+    //
+    //   var cmd = conn.CreateCommand() as MySqlCommand;
+    //   cmd.CommandText = @"UPDATE cuisines SET name = @newName where id = @searchId;";
+    //
+    //   MySqlParameter searchId = new MySqlParameter();
+    //   searchId.ParameterName = "@searchId";
+    //   searchId.Value = this.Id;
+    //   cmd.Parameters.Add(searchId);
+    //
+    //   MySqlParameter name = new MySqlParameter();
+    //   name.ParameterName = "@newName";
+    //   name.Value = newName;
+    //   cmd.Parameters.Add(name);
+    //
+    //   cmd.ExecuteNonQuery();
+    //   this.Name = newName;
+    //
+    //   conn.Close();
+    //   if (conn != null)
+    //   {
+    //     conn.Dispose();
+    //   }
+    // }
+
     public static Stylist Find(int inputId)
     {
       MySqlConnection conn = DB.Connection();
@@ -137,7 +187,5 @@ namespace HairSalon.Models
         conn.Dispose();
       }
     }
-
-
   }
 }
