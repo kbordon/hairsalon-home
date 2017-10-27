@@ -65,7 +65,20 @@ namespace HairSalon.Models.Tests
 
       CollectionAssert.AreEqual(testList, expectedList);
     }
-    // Fulfills spec to view all clients of a specific stylist.
+    // Fulfills spec to view all clients of a specific stylist
+
+
+    [TestMethod]
+    public void Find_FindsClientInDatabase_Client()
+    {
+      Client testClient = new Client("Charles Edeau", "619-883-0092", 1);
+      testClient.Save();
+
+      Client foundClient = Client.Find(testClient.Id);
+
+      Assert.AreEqual(testClient, foundClient);
+    }
+    // Fulfills spec to select a specific client.
 
   }
 }
