@@ -1,0 +1,38 @@
+@{
+  Layout = "_Layout";
+}
+<div class="well well-body">
+  <div class="row">
+    <div class="col-md-6">
+        <h1>@Model["this-stylist"].Name</h1>
+        <p class="lead">Add a client to this stylist's list of clients, or click on one listed to view their details.</p>
+        @if(Model["stylist-clients"].Count == 0)
+        {
+          <div class="alert alert-warning">
+            <h4><em>There are no clients entered yet.</em></h4>
+          </div>
+        }
+        else
+        {
+          <ul class="list-unstyled client-list">
+            @foreach(var client in Model["stylist-clients"])
+            {
+              <li><a href='/stylists/@Model["this-stylist"].Id/clients/@client.Id'>@client.Name</a></li>
+            }
+          </ul>
+        }
+      </div>
+      <div class="col-md-6 rest-detail">
+        @Html.Partial("selected-client")
+      </div>
+    </div>
+  <div class="row">
+    <div class="col-md-12">
+      <ul class="list-inline">
+        <li><a href="/stylists/@Model["this-stylist"].Id/clients/new">Add a Client</a></li>
+        <li><a href="/stylists/">Return to Stylist</a></li>
+        <li><a href="/">Return to Home</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
