@@ -14,7 +14,7 @@ namespace HairSalon.Controllers
       }
 
       [HttpGet("/stylists")]
-      public ActionResult ViewStylists()
+      public ActionResult StylistsView()
       {
         List<Stylist> allStylists = Stylist.GetAll();
         return View("Stylists", allStylists);
@@ -23,7 +23,28 @@ namespace HairSalon.Controllers
       [HttpGet("/stylists/new")]
       public ActionResult StylistForm()
       {
+        // string error = "";
         return View();
       }
+
+      [HttpPost("/stylists/new")]
+      public ActionResult StylistsAdd()
+      {
+        double validNumber;
+        bool correctPhone = double.TryParse(Request.Form["stylist-phone"], out validNumber);
+        if (correctPhone)
+        {
+          Stylist newStylist = new Stylist(Request.Form["stylist-name"], Request.Form["stylist-phone"]);
+          newStylist.Save();
+          List<Stylist> allStylists = Stylist.GetAll();
+          return View("Stylists", allStylists);
+        }
+        else
+        {
+          string error = "error";
+          return View("StylistForm", error);
+        }
+      }
+
     }
 }

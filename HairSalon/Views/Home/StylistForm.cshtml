@@ -5,12 +5,22 @@
   <h1>Add a Stylist</h1>
   <br>
   <form action="/stylists/new" method="post">
-    <label class="custom-label" for="stylist-name">Enter a type of stylist:</label>
-    <input type="text" class="form-control" name="stylist-name" id="stylist-name" placeholder="Jane Doe" required autofocus>
-    <label class="custom-label" for="stylist-phone">Enter phone number:</label>
-    <input type="text" class="form-control" phone="stylist-phone" id="stylist-phone" required pattern=".{0}|.{10}" placeholder="1234567890, or leave blank">
+    <div class="form-group">
+      <label class="custom-label" for="stylist-name">Enter a type of stylist:</label>
+      <input type="text" class="form-control" name="stylist-name" id="stylist-name" placeholder="Jane Doe" required autofocus>
+    </div>
+    <div class="form-group">
+      <label class="custom-label" for="stylist-phone">Enter phone number:</label>
+      <input type="text" class="form-control" name="stylist-phone" id="stylist-phone" required pattern=".{10}" placeholder="1234567890">
+      @if(Model != null)
+      {
+        <h4 class="text-danger"><em>Please enter only numbers!</em></h4>
+      }
+    </div>
     <button class="btn btn-info" type="submit">Submit</button>
   </form>
 
+<br>
+<br>
 <a class="other-link" href="/">Back to Home</a>
 </div>
