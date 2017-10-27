@@ -29,7 +29,7 @@ namespace HairSalon.Models.Tests
     }
 
     [TestMethod]
-    public void Equals_ReturnsTrueIfNamePhoneAndIdAreTheSame_Restaurant()
+    public void Equals_ReturnsTrueIfNamePhoneAndIdAreTheSame_Client()
     {
       Client firstClient = new Client("Charles Edeau", "619-883-0092", 1);
       Client secondClient = new Client("Charles Edeau", "619-883-0092", 1);
@@ -39,7 +39,7 @@ namespace HairSalon.Models.Tests
     // Above tests ensure following tests, equals method, and database connection are properly setup.
 
     [TestMethod]
-    public void Save_SavesToDatabase_RestaurantList()
+    public void Save_SavesToDatabase_ClientList()
     {
       Client testClient = new Client("Charles Edeau", "619-883-0092", 1);
       testClient.Save();
@@ -79,6 +79,38 @@ namespace HairSalon.Models.Tests
       Assert.AreEqual(testClient, foundClient);
     }
     // Fulfills spec to select a specific client.
+
+    [TestMethod]
+    public void UpdateClient_UpdatesClientInDatabase_String()
+    {
+      Client testClient = new Client("Charles Edeau", "619-883-0092", 1);
+      testClient.Save();
+      testClient.UpdateClient("Maya Concepcion", "619-888-0092");
+
+      Assert.AreEqual(testClient.Name, "Maya Concepcion");
+      Assert.AreEqual(testClient.Phone, "619-888-0092");
+    }
+    // Fulfills spec to update a specific client's information.
+
+    [TestMethod]
+    public void Delete_DeletesClientInDatabase_ClientList()
+    {
+      Client testClient = new Client("Charles Edeau", "619-883-0092", 1);
+      testClient.Save();
+      Client testClient2 = new Client("Rosali Gueverra", "334-781-1119", 2);
+      testClient2.Save();
+      Client testClient3 = new Client("Dinan Johannsen", "305-225-2267", 1);
+      testClient3.Save();
+
+      List<Client> testList = new List<Client>{testClient2, testClient3};
+      testClient.Delete();
+
+      List<Client> result = Client.GetAll();
+
+      CollectionAssert.AreEqual(testList, result);
+    }
+    // Fulfills spec to delete a specific client.
+
 
   }
 }

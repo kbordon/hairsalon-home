@@ -19,6 +19,62 @@ namespace HairSalon.Models
       StylistId = stylistId;
     }
 
+    public void Delete()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = "DELETE FROM clients WHERE id = @searchId;";
+
+      MySqlParameter searchId = new MySqlParameter();
+      searchId.ParameterName = "@searchId";
+      searchId.Value = this.Id;
+      cmd.Parameters.Add(searchId);
+
+      cmd.ExecuteNonQuery();
+      conn.Close();
+
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+    }
+
+    public void UpdateClient(string updateName, string updatePhone)
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"UPDATE clients SET name = @newName, phone = @newPhone WHERE id = @searchId;";
+
+      MySqlParameter searchId = new MySqlParameter();
+      searchId.ParameterName = "@searchId";
+      searchId.Value = this.Id;
+      cmd.Parameters.Add(searchId);
+
+      //name
+      MySqlParameter newName = new MySqlParameter();
+      newName.ParameterName = "@newName";
+      newName.Value = updateName;
+      cmd.Parameters.Add(newName);
+      //favorite dish
+      MySqlParameter newPhone = new MySqlParameter();
+      newPhone.ParameterName = "@newPhone";
+      newPhone.Value = updatePhone;
+      cmd.Parameters.Add(newPhone);
+
+      cmd.ExecuteNonQuery();
+      this.Name = updateName;
+      this.Phone = updatePhone;
+
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+    }
+
     public static Client Find(int inputId)
     {
       MySqlConnection conn = DB.Connection();
