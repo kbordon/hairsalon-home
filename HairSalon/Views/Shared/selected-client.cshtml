@@ -1,18 +1,14 @@
 @if (Model["selected-client"] != null)
 {
-  <form action='/stylists/@Model["this-stylist"].Id/clients/@Model["selected-client"].Id/delete' method="post">
-  <button class="btn btn-danger custom-btn" type="submit">Delete Restaurant</button>
-  </form>
   <h3><em>@Model["selected-client"].Name</em></h3>
   <ul class="custom-list">
-    <li>Cost: @Model["selected-client"].Cost</li>
-    <li>Favorite Dish: @Model["selected-client"].FavoriteDish</li>
+    <li>Client Name: @Model["selected-client"].Name</li>
+    <li>Phone Number: @(String.Format("{0:(###) ###-####}", Double.Parse(@Model["selected-client"].Phone)))</li>
     <br>
     <li class="list-unstyled">(<a href="/stylists/@Model["this-stylist"].Id/clients/@Model["selected-client"].Id/edit">EDIT</a>)</li>
   </ul>
   <br>
-}
-else
-{
-  
+    <form action='/stylists/@Model["this-stylist"].Id/clients/@Model["selected-client"].Id/delete' method="post">
+    <button class="btn btn-danger" type="submit">Delete Restaurant</button>
+    </form>
 }

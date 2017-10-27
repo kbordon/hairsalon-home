@@ -19,3 +19,5 @@
 >CREATE TABLE stylists (id serial PRIMARY KEY, name VARCHAR(255), phone VARCHAR(255));
 >CREATE TABLE clients (id serial PRIMARY KEY, name VARCHAR(255), phone VARCHAR(255), INT stylist_id);
 ```
+## Known Bugs
+* When listing phone numbers, should a zip code be entered starting with a zero, the number may be listed without the zero as it is converted into a number, and will lose the beginning number.
