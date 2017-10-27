@@ -20,6 +20,25 @@ namespace HairSalon.Models.Tests
         DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=kimberly_bordon_test;";
     }
 
+    [TestMethod]
+    public void GetAll_GetClientsEmptyAtFirst_0()
+    {
+      int result = Client.GetAll().Count;
+
+      Assert.AreEqual(0, result);
+    }
+
+    [TestMethod]
+    public void Equals_ReturnsTrueIfNamePhoneAndIdAreTheSame_Restaurant()
+    {
+      Client firstClient = new Client("Charles Edeau", "619-883-0092", 1);
+      Client secondClient = new Client("Charles Edeau", "619-883-0092", 1);
+
+      Assert.AreEqual(firstClient, secondClient);
+    }
+    // Above tests ensure following tests, equals method, and database connection are properly setup.
+
+
 
   }
 }

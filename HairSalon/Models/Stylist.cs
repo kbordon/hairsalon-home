@@ -172,6 +172,11 @@ namespace HairSalon.Models
       }
     }
 
+    public override int GetHashCode()
+    {
+      return this.Id.GetHashCode();
+    }
+
     public static void ClearAll()
     {
       MySqlConnection conn = DB.Connection();
