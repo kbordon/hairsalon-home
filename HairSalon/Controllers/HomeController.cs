@@ -52,7 +52,7 @@ namespace HairSalon.Controllers
       Dictionary<string, object> model = new Dictionary<string, object>{};
       model.Add("selected-client", null);
       Stylist selectedStylist = Stylist.Find(id);
-      model.Add("this-stylist", selectedStylist);
+      model.Add("selected-stylist", selectedStylist);
       List<Client> stylistClients = Client.GetAllClientsByStylist(selectedStylist.Id);
       model.Add("stylist-clients", stylistClients);
       return View(model);
@@ -69,26 +69,29 @@ namespace HairSalon.Controllers
     [HttpPost("/stylists/{id}/clients/new")]
     public ActionResult ClientAdd(int id)
     {
-      // double validNumber;
-      // bool correctPhone = double.TryParse(Request.Form["client-phone"], out validNumber);
-      // if (correctPhone)
-      // {
       Client newClient = new Client(Request.Form["client-name"], Request.Form["client-phone"], id);
       newClient.Save();
 
       Dictionary<string, object> model = new Dictionary<string, object> {};
       model.Add("selected-client", newClient);
       Stylist selectedStylist = Stylist.Find(id);
-      model.Add("this-stylist", selectedStylist);
+      model.Add("selected-stylist", selectedStylist);
       List<Client> allClients = Client.GetAllClientsByStylist(id);
       model.Add("stylist-clients", allClients);
       return View("StylistDetail", model);
-      // }
-      // else
-      // {
-      //   string error = "error";
-      //   return View("ClientForm", error);
-      // }
+    }
+
+    [HttpGet("/stylists/{id}/clients/{clientId}")]
+    public ActionResult ClientDetails(int id, int clientId)
+    {
+      Dictionary<string, object> model = new Dictionary<string, object> {};
+      List<Client> allClients = Client.GetAllClientsByStylist(id);
+      Stylist selectedStylist = Stylist.Find(id);
+      Client selectedClient = Client.Find(clientId);
+      model.Add("stylist-clients", allClients);
+      model.Add("selected-stylist", selectedStylist);
+      model.Add("selected-client", selectedClient);
+      return View("StylistDetail", model);
     }
 
   }

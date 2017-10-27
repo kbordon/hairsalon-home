@@ -5,10 +5,10 @@
     <li>Client Name: @Model["selected-client"].Name</li>
     <li>Phone Number: @(String.Format("{0:(###) ###-####}", Double.Parse(@Model["selected-client"].Phone)))</li>
     <br>
-    <li class="list-unstyled">(<a href="/stylists/@Model["this-stylist"].Id/clients/@Model["selected-client"].Id/edit">EDIT</a>)</li>
+    <li class="list-unstyled">(<a href="/stylists/@Model["selected-stylist"].Id/clients/@Model["selected-client"].Id/edit">EDIT</a>)</li>
   </ul>
   <br>
-    <form action='/stylists/@Model["this-stylist"].Id/clients/@Model["selected-client"].Id/delete' method="post">
+    <form action='/stylists/@Model["selected-stylist"].Id/clients/@Model["selected-client"].Id/delete' method="post">
     <button class="btn btn-danger" type="submit">Delete Restaurant</button>
     </form>
 }
