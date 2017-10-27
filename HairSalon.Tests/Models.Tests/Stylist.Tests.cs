@@ -26,5 +26,36 @@ namespace HairSalon.Models.Tests
 
       Assert.AreEqual(0, result);
     }
+
+    [TestMethod]
+    public void Equals_ReturnsTrueForSameName_Stylist()
+    {
+      Stylist firstStylist = new Stylist("Deva Jones", "123-456-7890");
+      Stylist secondStylist = new Stylist("Deva Jones", "123-456-7890");
+
+      Assert.AreEqual(firstStylist, secondStylist);
+    }
+
+    [TestMethod]
+    public void Save_SavesStylistToDatabase_StylistList()
+    {
+      Stylist testStylist = new Stylist("Deva Jones", "123-456-7890");
+      testStylist.Save();
+
+      List<Stylist> result = Stylist.GetAll();
+      List<Stylist> testList = new List<Stylist>{testStylist};
+
+      CollectionAssert.AreEqual(testList, result);
+    }
+
+    // [TestMethod]
+    // public void GetAll_GetsAllStylistsInDatabase_List()
+    // {
+    //   Stylist testStylist = new Stylist("Davey Jones", "509-555-2342");
+    //
+    //   Assert.AreEqual(0, testStylist);
+    // }
+    // This test fulfills spec 2.
+
   }
 }
