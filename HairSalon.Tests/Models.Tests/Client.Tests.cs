@@ -50,7 +50,22 @@ namespace HairSalon.Models.Tests
     }
     // Fulfills specs to add client, and view all clients.
 
+    [TestMethod]
+    public void GetClientsByStylist_GetsAllClientsInDatabaseByStylist_List()
+    {
+      Client testClient = new Client("Charles Edeau", "619-883-0092", 1);
+      testClient.Save();
+      Client testClient2 = new Client("Rosali Gueverra", "334-781-1119", 2);
+      testClient2.Save();
+      Client testClient3 = new Client("Dinan Johannsen", "305-225-2267", 1);
+      testClient3.Save();
 
+      List<Client> testList = Client.GetAllClientsByStylist(1);
+      List<Client> expectedList = new List<Client>{testClient, testClient3};
+
+      CollectionAssert.AreEqual(testList, expectedList);
+    }
+    // Fulfills spec to view all clients of a specific stylist.
 
   }
 }
