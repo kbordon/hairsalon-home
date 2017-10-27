@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HairSalon.Models;
 
-namespace HairSalon.Tests
+namespace HairSalon.Models.Tests
 {
   [TestClass]
   public class StylistTests : IDisposable
@@ -17,13 +16,15 @@ namespace HairSalon.Tests
 
     public StylistTests()
     {
-        DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=3306;database=kimberly_bordon_test;";
+        DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=kimberly_bordon_test;";
     }
 
     [TestMethod]
-    public void Method_Description_ExpectedValue()
+    public void GetAll_StylistsEmptyAtFirst_0()
     {
-      Assert.AreEqual(var1, method(input));
+      int result = Stylist.GetAll().Count;
+
+      Assert.AreEqual(0, result);
     }
   }
 }
