@@ -11,12 +11,8 @@
     </div>
     <div class="form-group">
       <label class="custom-label" for="client-phone">Phone number:</label>
-      <input type="number" class="form-control" name="client-phone" id="client-phone" required pattern=".{10}" placeholder="1234567890">
-      @* @if(Model == "error")
-      {
-        <h4 class="text-danger"><em>Please enter only numbers!</em></h4>
-      }
-    </div> *@
+      <input pattern="[0-9]{10}" type="text" class="form-control" name="client-phone" id="client-phone" required  title="Must 10 digit area code and phone number without spaces.">
+    </div>
     <button class="btn btn-info" type="submit">Submit</button>
   </form>
   <ul class="list-inline">

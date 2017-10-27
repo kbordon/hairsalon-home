@@ -1,0 +1,19 @@
+@{
+  Layout = "_Layout";
+}
+<div class="well well-body">
+  <h2>Edit @Model["selected-client"].Name Details</h2>
+  <form action="/stylists/@Model["selected-stylist"].Id/clients/@Model["selected-client"].Id/edit" method="post">
+    <div class="form-group">
+      <label for="new-name">Name:</label>
+      <input type=text class="form-control" name="new-name" id="new-name" required autofocus value="@Model["selected-client"].Name" placeholder="Jane Doe">
+    </div>
+    <div class="form-group">
+      <label for="new-phone">Phone:</label>
+      <input pattern="[0-9]{10}" type="text" class="form-control" name="new-phone" id="new-phone" required  title="Must 10 digit area code and phone number without spaces.">
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-info">Submit</button>
+    </div>
+  </form>
+</div>

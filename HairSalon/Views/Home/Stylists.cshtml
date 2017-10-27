@@ -13,11 +13,15 @@
   }
   else
   {
-      @foreach(var cuisine in Model)
+    <ul class="list-unstyled">
+      @foreach(var stylist in Model)
       {
-        <span class="custom-list"><a href="/stylists/@cuisine.Id">@cuisine.Name</a></span>
+        <li class="custom-list"><a href="/stylists/@stylist.Id">@stylist.Name</a></li>
       }
+    </ul>
   }
+  <br>
+  <br>
   <ul class="list-inline">
     <li><a class="other-link" href="/stylists/new">Add a Stylist</a></li>
     <li><a class="other-link" href="/">Return to Home</a></li>

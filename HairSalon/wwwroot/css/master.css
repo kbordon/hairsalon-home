@@ -1,7 +1,44 @@
+@import url('https://fonts.googleapis.com/css?family=Cutive|Raleway');
+
 body {
-  font-family: sans-serif;
+  font-family: 'Raleway', sans-serif;
+}
+
+h1 {
+  font-family: 'Cutive', serif;
+  letter-spacing: 5px;
+}
+
+.jumbotron {
+  text-align: center;
+  background-color: rgba(255, 238, 204, 0.2);
+}
+
+.custom-list {
+  font-family: 'Raleway', sans-serif;
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.other-link {
+  letter-spacing: 3px;
+  font-size: 20px;
+}
+
+.index-link {
+  letter-spacing: 5px;
+  font-size: 24px;
+}
+
+.index-body {
+  text-align: center;
+}
+
+.well-body {
+  background-color: rgba(255, 238, 204, 0.2);
 }
 
 /*.form-control {
+  color: #ff6600;
   width: 300px;
 }*/

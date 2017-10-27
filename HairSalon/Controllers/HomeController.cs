@@ -106,5 +106,32 @@ namespace HairSalon.Controllers
     }
     // Delete a specific Client, and update list of clients
 
+    [HttpGet("/stylists/{id}/clients/{clientId}/edit")]
+    public ActionResult ClientEdit(int id, int clientId)
+    {
+      Dictionary<string, object> model = new Dictionary<string, object> {};
+      Client selectedClient = Client.Find(clientId);
+      model.Add("selected-client", selectedClient);
+      Stylist selectedStylist = Stylist.Find(id);
+      model.Add("selected-stylist", selectedStylist);
+      return View(model);
+    }
+    // Go to Form to edit specific Client details.
+
+    [HttpPost("/stylists/{id}/clients/{clientId}/edit")]
+    public ActionResult ClientEditConfirm(int id)
+    {
+      Client selectedClient = Client.Find(id);
+      selectedClient.UpdateClient(Request.Form["new-name"], Request.Form["new-phone"]);
+      Dictionary<string, object> model = new Dictionary<string, object>{};
+      model.Add("selected-client", selectedClient);
+      Stylist selectedStylist = Stylist.Find(id);
+      model.Add("selected-stylist", selectedStylist);
+      List<Client> stylistClients = Client.GetAllClientsByStylist(selectedStylist.Id);
+      model.Add("stylist-clients", stylistClients);
+      return View("StylistDetail", model);
+    }
+    // Enter changes to Client details, then show updated details on Stylist page.
+
   }
 }
