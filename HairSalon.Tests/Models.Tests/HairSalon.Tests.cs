@@ -7,8 +7,19 @@ using HairSalon.Models;
 namespace HairSalon.Tests
 {
   [TestClass]
-  public class HairSalonTest
+  public class StylistTests : IDisposable
   {
+
+    public void Dispose()
+    {
+      // add delete to models.
+    }
+
+    public StylistTests()
+    {
+        DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=3306;database=kimberly_bordon_test;";
+    }
+
     [TestMethod]
     public void Method_Description_ExpectedValue()
     {
