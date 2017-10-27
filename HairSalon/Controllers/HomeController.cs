@@ -12,6 +12,7 @@ namespace HairSalon.Controllers
     {
       return View();
     }
+    // Welcome Page
 
     [HttpGet("/stylists")]
     public ActionResult StylistsView()
@@ -19,6 +20,7 @@ namespace HairSalon.Controllers
       List<Stylist> allStylists = Stylist.GetAll();
       return View("Stylists", allStylists);
     }
+    // View All Stylists
 
     [HttpGet("/stylists/new")]
     public ActionResult StylistForm()
@@ -26,25 +28,17 @@ namespace HairSalon.Controllers
       // string error = "";
       return View();
     }
+    // Go to Form to add a Stylist
 
     [HttpPost("/stylists/new")]
     public ActionResult StylistAdd()
     {
-      // double validNumber;
-      // bool correctPhone = double.TryParse(Request.Form["stylist-phone"], out validNumber);
-      // if (correctPhone)
-      // {
       Stylist newStylist = new Stylist(Request.Form["stylist-name"], Request.Form["stylist-phone"]);
       newStylist.Save();
       List<Stylist> allStylists = Stylist.GetAll();
       return View("Stylists", allStylists);
-      // }
-      // else
-      // {
-        // string error = "error";
-        // return View("StylistForm", error);
-      // }
     }
+    // After adding a Stylist, return to All Stylists
 
     [HttpGet("/stylists/{id}")]
     public ActionResult StylistDetail(int id)
@@ -57,6 +51,7 @@ namespace HairSalon.Controllers
       model.Add("stylist-clients", stylistClients);
       return View(model);
     }
+    // View a Stylist's details
 
     [HttpGet("/stylists/{id}/clients/new")]
     public ActionResult ClientForm(int id)
@@ -64,7 +59,7 @@ namespace HairSalon.Controllers
       Stylist selectedStylist = Stylist.Find(id);
       return View(selectedStylist);
     }
-
+    // Go to Form to add a Client to a Stylist's clientele
 
     [HttpPost("/stylists/{id}/clients/new")]
     public ActionResult ClientAdd(int id)
@@ -80,6 +75,7 @@ namespace HairSalon.Controllers
       model.Add("stylist-clients", allClients);
       return View("StylistDetail", model);
     }
+    // After adding a Client, go to Stylist's Detail page with new Client shown
 
     [HttpGet("/stylists/{id}/clients/{clientId}")]
     public ActionResult ClientDetails(int id, int clientId)
@@ -93,6 +89,22 @@ namespace HairSalon.Controllers
       model.Add("selected-client", selectedClient);
       return View("StylistDetail", model);
     }
+    // Select a specific Client to view details
+
+    [HttpPost("/stylists/{id}/clients/{clientId}/delete")]
+    public ActionResult ClientDelete(int id, int clientId)
+    {
+      Client selectedClient = Client.Find(clientId);
+      selectedClient.Delete();
+      Dictionary<string, object> model = new Dictionary<string, object> {};
+      model.Add("selected-client", null);
+      Stylist selectedStylist = Stylist.Find(id);
+      model.Add("selected-stylist", selectedStylist);
+      List<Client> allClients = Client.GetAllClientsByStylist(id);
+      model.Add("stylist-clients", allClients);
+      return View("StylistDetail", model);
+    }
+    // Delete a specific Client, and update list of clients
 
   }
 }
