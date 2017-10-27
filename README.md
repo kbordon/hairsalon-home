@@ -11,3 +11,11 @@
 | Will allow user to fill out client information, and add client. | User enters:<br><br>Dahlia Miyazaki<br>503-859-3324<br>d.miyazaki@email.com<br><br> User clicks Submit | The user is taken to stylist's page of that client with client newly added to client list. | description |
 | Will allow user to update a client's information details. | User clicks on edit link on the client's information, and enters new information.<br><br>User clicks Submit. | The client's information is updated, and the user is taken back to stylist page with new client information shown.| description |
 | Will allow user to delete a client that no longer visits the salon. | User clicks on client's name on stylist's page. User clicks on "Delete" button on client's information page. | User is taken back to stylist page with list of clients without newly deleted client. |description |
+
+## Setup & Installation
+```SQL
+>CREATE DATABASE kimberly_bordon;
+>USE kimberly_bordon;
+>CREATE TABLE stylists (id serial PRIMARY KEY, name VARCHAR(255), phone VARCHAR(255));
+>CREATE TABLE clients (id serial PRIMARY KEY, name VARCHAR(255), phone VARCHAR(255), INT stylist_id);
+```
