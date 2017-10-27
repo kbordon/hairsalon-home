@@ -19,6 +19,40 @@ namespace HairSalon.Models
       // HireDate = hireDate; string hireDate,
     }
 
+    public static Stylist Find(int inputId)
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = "SELECT * FROM stylists WHERE id = @searchId;";
+
+      MySqlParameter searchId = new MySqlParameter();
+      searchId.ParameterName = "@searchId";
+      searchId.Value = inputId;
+      cmd.Parameters.Add(searchId);
+
+      int stylistId = 0;
+      string stylistName = "";
+      string stylistPhone = "";
+
+      var rdr = cmd.ExecuteReader() as MySqlDataReader;
+      while (rdr.Read())
+      {
+        stylistId = rdr.GetInt32(0);
+        stylistName = rdr.GetString(1);
+        stylistPhone = rdr.GetString(2);
+      }
+
+      Stylist foundStylist = new Stylist(stylistName, stylistPhone, stylistId);
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+      return foundStylist;
+    }
+
     public void Save()
     {
       MySqlConnection conn = DB.Connection();
@@ -85,6 +119,22 @@ namespace HairSalon.Models
         bool phoneEquality = (this.Phone == newStylist.Phone);
         bool nameEquality = (this.Name == newStylist.Name);
         return (idEquality && phoneEquality && nameEquality);
+      }
+    }
+
+    public static void ClearAll()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"DELETE FROM stylists;";
+      cmd.ExecuteNonQuery();
+
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
       }
     }
 

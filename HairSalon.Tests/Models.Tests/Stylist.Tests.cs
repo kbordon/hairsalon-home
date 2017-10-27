@@ -11,7 +11,7 @@ namespace HairSalon.Models.Tests
 
     public void Dispose()
     {
-      // add delete to models.
+      Stylist.ClearAll();
     }
 
     public StylistTests()
@@ -47,15 +47,18 @@ namespace HairSalon.Models.Tests
 
       CollectionAssert.AreEqual(testList, result);
     }
+    //Fulfills spec to for adding and viewing stylist functionality.
 
-    // [TestMethod]
-    // public void GetAll_GetsAllStylistsInDatabase_List()
-    // {
-    //   Stylist testStylist = new Stylist("Davey Jones", "509-555-2342");
-    //
-    //   Assert.AreEqual(0, testStylist);
-    // }
-    // This test fulfills spec 2.
+    [TestMethod]
+    public void Find_FindsStylistInDatabase_Stylist()
+    {
+      Stylist testStylist = new Stylist("Felipe Hernandez", "971-455-6703");
+      testStylist.Save();
+
+      Stylist foundStylist = Stylist.Find(testStylist.Id);
+
+      Assert.AreEqual(testStylist, foundStylist);
+    }
 
   }
 }
