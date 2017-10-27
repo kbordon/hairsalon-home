@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace HairSalon.Models
 {
-  public class HairSalon
+  public class Stylist
   {
 
   }
