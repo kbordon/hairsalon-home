@@ -15,12 +15,14 @@
         }
         else
         {
-          <ul class="list-unstyled client-list">
-            @foreach(var client in Model["stylist-clients"])
-            {
-              <li class="custom-list"><a href='/stylists/@Model["selected-stylist"].Id/clients/@client.Id'>@client.Name</a></li>
-            }
-          </ul>
+          <div class="alert alert-warning">
+            <ul class="list-unstyled client-list">
+              @foreach(var client in Model["stylist-clients"])
+              {
+                <li class="custom-list"><a href='/stylists/@Model["selected-stylist"].Id/clients/@client.Id'>@client.Name</a></li>
+              }
+            </ul>
+          </div>
         }
       </div>
       <div class="col-md-6 rest-detail">

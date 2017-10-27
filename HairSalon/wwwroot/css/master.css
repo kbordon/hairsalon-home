@@ -1,7 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Cutive|Raleway');
 
+.custom-container {
+  margin-top: 100px;
+}
+
 body {
   font-family: 'Raleway', sans-serif;
+  background-image: url(/img/bg.jpg);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 h1 {
@@ -11,7 +19,7 @@ h1 {
 
 .jumbotron {
   text-align: center;
-  background-color: rgba(255, 238, 204, 0.2);
+  background-color: rgba(255, 238, 204, 0.85);
 }
 
 .custom-list {
@@ -35,7 +43,7 @@ h1 {
 }
 
 .well-body {
-  background-color: rgba(255, 238, 204, 0.2);
+  background-color: rgba(255, 238, 204, 0.85);
 }
 
 /*.form-control {
