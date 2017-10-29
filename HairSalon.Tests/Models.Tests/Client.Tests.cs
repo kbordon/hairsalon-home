@@ -85,10 +85,21 @@ namespace HairSalon.Models.Tests
     {
       Client testClient = new Client("Charles Edeau", "619-883-0092", 1);
       testClient.Save();
-      testClient.UpdateClient("Maya Concepcion", "619-888-0092");
+      testClient.UpdateClient("Maya Concepcion", "619-888-0092", testClient.StylistId);
 
       Assert.AreEqual(testClient.Name, "Maya Concepcion");
       Assert.AreEqual(testClient.Phone, "619-888-0092");
+    }
+    // Fulfills spec to update a specific client's information.
+
+    [TestMethod]
+    public void UpdateClient_UpdatesClientStylistIdInDatabase_2()
+    {
+      Client testClient = new Client("Charles Edeau", "619-883-0092", 1);
+      testClient.Save();
+      testClient.UpdateClient(testClient.Name, testClient.Phone, 2);
+
+      Assert.AreEqual(2, testClient.StylistId);
     }
     // Fulfills spec to update a specific client's information.
 
@@ -120,10 +131,12 @@ namespace HairSalon.Models.Tests
         testClient2.Save();
         Client testClient3 = new Client("Dinan Johannsen", "305-225-2267", 1);
         testClient3.Save();
+        Client testClient4 = new Client("Charisse Smith", "619-333-1997", 1);
+        testClient4.Save();
 
-        string searchInput = "Rosali";
+        string searchInput = "Cha";
         List<Client> result = Client.SearchByName(searchInput);
-        List<Client> expectedList = new List<Client>{testClient2};
+        List<Client> expectedList = new List<Client>{testClient, testClient4};
 
         CollectionAssert.AreEqual(result, expectedList);
     }

@@ -22,6 +22,30 @@ namespace HairSalon.Models
     public static List<Client> SearchByName(string input)
     {
         List<Client> matchedClients = new List<Client>{};
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"SELECT * FROM clients WHERE name LIKE @searchInput;";
+
+        MySqlParameter searchInput = new MySqlParameter();
+        searchInput.ParameterName = "@searchInput";
+        cmd.Parameters.AddWithValue("@searchInput", input + "%");
+
+        int id = 0;
+        string name = "";
+        string phone = "";
+        int stylistId = 0;
+        var rdr = cmd.ExecuteReader() as MySqlDataReader;
+        while(rdr.Read())
+        {
+            id = rdr.GetInt32(0);
+            name = rdr.GetString(1);
+            phone = rdr.GetString(2);
+            stylistId = rdr.GetInt32(3);
+            Client matchedClient = new Client(name, phone, stylistId, id);
+            matchedClients.Add(matchedClient);
+        }
         return matchedClients;
     }
 
@@ -47,12 +71,12 @@ namespace HairSalon.Models
       }
     }
 
-    public void UpdateClient(string updateName, string updatePhone)
+    public void UpdateClient(string updateName, string updatePhone, int updateStylistId)
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"UPDATE clients SET name = @newName, phone = @newPhone WHERE id = @searchId;";
+      cmd.CommandText = @"UPDATE clients SET name = @newName, phone = @newPhone, stylist_id = @newStylistId WHERE id = @searchId;";
 
       MySqlParameter searchId = new MySqlParameter();
       searchId.ParameterName = "@searchId";
@@ -64,15 +88,20 @@ namespace HairSalon.Models
       newName.ParameterName = "@newName";
       newName.Value = updateName;
       cmd.Parameters.Add(newName);
-      //favorite dish
+      //phone
       MySqlParameter newPhone = new MySqlParameter();
       newPhone.ParameterName = "@newPhone";
       newPhone.Value = updatePhone;
       cmd.Parameters.Add(newPhone);
+      //stylist
+      MySqlParameter newStylistId = new MySqlParameter();
+      newStylistId.ParameterName = "@newStylistId";
+      cmd.Parameters.AddWithValue("@newStylistId", updateStylistId);
 
       cmd.ExecuteNonQuery();
       this.Name = updateName;
       this.Phone = updatePhone;
+      this.StylistId = updateStylistId;
 
       conn.Close();
       if (conn != null)

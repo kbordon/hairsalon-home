@@ -122,7 +122,7 @@ namespace HairSalon.Controllers
     public ActionResult ClientEditConfirm(int id)
     {
       Client selectedClient = Client.Find(id);
-      selectedClient.UpdateClient(Request.Form["new-name"], Request.Form["new-phone"]);
+      selectedClient.UpdateClient(Request.Form["new-name"], Request.Form["new-phone"], selectedClient.StylistId);
       Dictionary<string, object> model = new Dictionary<string, object>{};
       model.Add("selected-client", selectedClient);
       Stylist selectedStylist = Stylist.Find(id);
@@ -132,6 +132,7 @@ namespace HairSalon.Controllers
       return View("StylistDetail", model);
     }
     // Enter changes to Client details, then show updated details on Stylist page.
+
 
   }
 }

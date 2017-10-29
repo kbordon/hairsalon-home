@@ -22,7 +22,7 @@ namespace HairSalon.Models
     public static List<Stylist> SearchByName(string input)
     {
         //search for stylist by name
-        List<Stylist> result = new List<Stylist>{};
+        List<Stylist> matchedStylists = new List<Stylist>{};
         MySqlConnection conn = DB.Connection();
         conn.Open();
 
@@ -45,15 +45,15 @@ namespace HairSalon.Models
             stylistId = rdr.GetInt32(0);
             stylistName = rdr.GetString(1);
             stylistPhone = rdr.GetString(2);
-            Stylist newStylist = new Stylist(stylistName, stylistPhone, stylistId);
-            result.Add(newStylist);
+            Stylist matchedStylist = new Stylist(stylistName, stylistPhone, stylistId);
+            matchedStylists.Add(matchedStylist);
         }
         conn.Close();
         if (conn != null)
         {
             conn.Dispose();
         }
-        return result;
+        return matchedStylists;
     }
 
     public void Delete()
