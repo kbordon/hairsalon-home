@@ -25,16 +25,33 @@ _This is an application that exercises the basics of accessing databases and one
 * Using your terminal or powershell, clone this repository by typing ```>git clone https://github.com/kbordon/csharp-week3-code-review-hairsalon.git```
     * Alternatively, you can use a browser to download the .zip file from the Github web interface at the URL: https://github.com/kbordon/csharp-week3-code-review-hairsalon.git
 * To look at project code, navigate to the project folder csharp-week3-code-review-hairsalon, and use a text editor like Atom to open the README.md.
-* To run application:
-  * Make sure you have [.NET Core 1.1 SDK (Software Development Kit)](https://download.microsoft.com/download/F/4/F/F4FCB6EC-5F05-4DF8-822C-FF013DF1B17F/dotnet-dev-win-x64.1.1.4.exe) and [.NET runtime](https://download.microsoft.com/download/6/F/B/6FB4F9D2-699B-4A40-A674-B7FF41E0E4D2/dotnet-win-x64.1.1.4.exe) both installed.
-  * Before you can use the app, you must have the proper database setup by following these commands:
+* For any use of the application, make sure you have [.NET Core 1.1 SDK (Software Development Kit)](https://download.microsoft.com/download/F/4/F/F4FCB6EC-5F05-4DF8-822C-FF013DF1B17F/dotnet-dev-win-x64.1.1.4.exe) and [.NET runtime](https://download.microsoft.com/download/6/F/B/6FB4F9D2-699B-4A40-A674-B7FF41E0E4D2/dotnet-win-x64.1.1.4.exe) both installed.
+* To test the application:
+  * First ensure you have the proper database setup by entering starting up MySql, and entering the following commands:
+  ```SQL
+  >CREATE DATABASE kimberly_bordon_test;
+  >USE kimberly_bordon_test;
+  >CREATE TABLE stylists (id serial PRIMARY KEY, name VARCHAR(255), phone VARCHAR(255));
+  >CREATE TABLE clients (id serial PRIMARY KEY, name VARCHAR(255), phone VARCHAR(255), stylist_id INT);
+  ```
+  * Using powershell or terminal, navigate to the folder named csharp-week3-code-review-hairsalon. Then enter the following commands:
+  ```
+  >cd HairSalon.Solution
+  >cd HairSalon.Tests
+  >dotnet restore
+  >dotnet test
+  ```
+  * You can view the tests code by using your powershell or terminal in the HairSalon.Tests folder, then typing ```>cd Model.Tests``` and then ```> atom .``` to open both the tests on the Stylist and Client classes. If you don't have Atom, use whichever text editor you have available.
+
+* To run the application:
+  * First, you must have the proper database setup by following these commands:
   ```SQL
   >CREATE DATABASE kimberly_bordon;
   >USE kimberly_bordon;
   >CREATE TABLE stylists (id serial PRIMARY KEY, name VARCHAR(255), phone VARCHAR(255));
-  >CREATE TABLE clients (id serial PRIMARY KEY, name VARCHAR(255), phone VARCHAR(255), INT stylist_id);
+  >CREATE TABLE clients (id serial PRIMARY KEY, name VARCHAR(255), phone VARCHAR(255), stylist_id INT);
   ```
-  * Using powershell or terminal, navigate t ocsharp-week3-code-review-hairsalonfolder. Then enter the following commands:
+  * Using powershell or terminal, navigate to the folder named csharp-week3-code-review-hairsalon. Then enter the following commands:
   ```
   >cd HairSalon.Solution
   >cd HairSalon
@@ -46,7 +63,7 @@ _This is an application that exercises the basics of accessing databases and one
   * Once you're finished, close the browser and turn off the server by entering <kbd>Ctrl</kbd> + <kbd>C</kbd> on your powershell or terminal.
 
 ## Known Bugs
-* When listing phone numbers, should a zip code be entered starting with a zero, the number may be listed without the zero as it is converted into a number, and will lose the beginning zero.
+* When listing phone numbers, should a area code be entered starting with a zero, the number may be listed without the zero as it is converted into a number, and will lose the beginning zero.
 
 ## Support and contact details
 
