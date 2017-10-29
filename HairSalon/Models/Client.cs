@@ -19,6 +19,12 @@ namespace HairSalon.Models
       StylistId = stylistId;
     }
 
+    public static List<Client> SearchByName(string input)
+    {
+        List<Client> matchedClients = new List<Client>{};
+        return matchedClients;
+    }
+
     public void Delete()
     {
       MySqlConnection conn = DB.Connection();

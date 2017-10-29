@@ -111,6 +111,24 @@ namespace HairSalon.Models.Tests
     }
     // Fulfills spec to delete a specific client.
 
+    [TestMethod]
+    public void SearchByName_SearchesAndReturnsClientsWithSimilarName_ClientList()
+    {
+        Client testClient = new Client("Charles Edeau", "619-883-0092", 1);
+        testClient.Save();
+        Client testClient2 = new Client("Rosali Gueverra", "334-781-1119", 2);
+        testClient2.Save();
+        Client testClient3 = new Client("Dinan Johannsen", "305-225-2267", 1);
+        testClient3.Save();
+
+        string searchInput = "Rosali";
+        List<Client> result = Client.SearchByName(searchInput);
+        List<Client> expectedList = new List<Client>{testClient2};
+
+        CollectionAssert.AreEqual(result, expectedList);
+    }
+    // Fulfills spec to search and return Clients with similar names.
+
 
   }
 }

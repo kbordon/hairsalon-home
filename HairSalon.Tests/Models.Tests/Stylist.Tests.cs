@@ -90,6 +90,26 @@ namespace HairSalon.Models.Tests
 
         Assert.AreEqual(testStylist2, result[0]);
     }
+    // Fulfills spec to delete a specific stylist.
+
+    [TestMethod]
+    public void SearchByName_SearchesAndReturnsStylistsWithSimilarName_List()
+    {
+        Stylist testStylist = new Stylist("Deva Jones", "123-456-7890");
+        testStylist.Save();
+        Stylist testStylist2 = new Stylist("Felipe Hernandez", "971-455-6703");
+        testStylist2.Save();
+        Stylist testStylist3 = new Stylist("Delaney Jensen", "111-222-3333");
+        testStylist3.Save();
+
+        string searchInput = "De";
+        List<Stylist> result = Stylist.SearchByName(searchInput);
+        List<Stylist> expectedList = new List<Stylist>{testStylist, testStylist3};
+
+        CollectionAssert.AreEqual(result, expectedList);
+
+    }
+    // Fulfills spec to search for and return stylist based on name.
 
   }
 }

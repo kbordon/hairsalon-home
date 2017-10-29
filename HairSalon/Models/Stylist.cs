@@ -19,8 +19,43 @@ namespace HairSalon.Models
       // HireDate = hireDate; string hireDate,
     }
 
+    public static List<Stylist> SearchByName(string input)
+    {
+        //search for stylist by name
+        List<Stylist> result = new List<Stylist>{};
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
 
-    // TODO: consider adding these if there is time;
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"SELECT * FROM stylists WHERE name LIKE @searchInput;";
+
+        MySqlParameter searchInput = new MySqlParameter();
+        searchInput.ParameterName = "@searchInput";
+        // searchInput.Value = input;
+        // cmd.Parameters.Add(searchInput);
+        cmd.Parameters.AddWithValue("@searchInput", input + "%");
+
+        int stylistId = 0;
+        string stylistName = "";
+        string stylistPhone = "";
+
+        var rdr = cmd.ExecuteReader() as MySqlDataReader;
+        while(rdr.Read())
+        {
+            stylistId = rdr.GetInt32(0);
+            stylistName = rdr.GetString(1);
+            stylistPhone = rdr.GetString(2);
+            Stylist newStylist = new Stylist(stylistName, stylistPhone, stylistId);
+            result.Add(newStylist);
+        }
+        conn.Close();
+        if (conn != null)
+        {
+            conn.Dispose();
+        }
+        return result;
+    }
+
     public void Delete()
     {
       MySqlConnection conn = DB.Connection();
