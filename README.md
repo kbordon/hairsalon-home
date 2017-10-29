@@ -39,7 +39,8 @@ _This is an application that exercises the basics of accessing databases and one
   >cd HairSalon.Solution
   >cd HairSalon
   >dotnet restore
-  >dotnet run```
+  >dotnet run
+  ```
   * Then, on your browser, go to the URL address: localhost:5000 or, whichever server your app might be running on.
   * Use the buttons, and forms to navigate the app.
   * Once you're finished, close the browser and turn off the server by entering <kbd>Ctrl</kbd> + <kbd>C</kbd> on your powershell or terminal.
