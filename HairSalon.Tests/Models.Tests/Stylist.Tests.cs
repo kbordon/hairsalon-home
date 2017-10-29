@@ -16,7 +16,7 @@ namespace HairSalon.Models.Tests
 
     public StylistTests()
     {
-        DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=kimberly_bordon_test;";
+        DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=3306;database=kimberly_bordon_test;";
     }
 
     [TestMethod]
@@ -47,7 +47,7 @@ namespace HairSalon.Models.Tests
 
       CollectionAssert.AreEqual(testList, result);
     }
-    //Fulfills spec to for adding and viewing stylist functionality.
+    //Fulfills spec for adding and viewing stylist functionality.
 
     [TestMethod]
     public void Find_FindsStylistInDatabase_Stylist()
@@ -58,6 +58,37 @@ namespace HairSalon.Models.Tests
       Stylist foundStylist = Stylist.Find(testStylist.Id);
 
       Assert.AreEqual(testStylist, foundStylist);
+    }
+    //Fulfills spec to view specifc stylist.
+
+    [TestMethod]
+    public void Update_UpdatesStylistNameandPhoneNumberInstanceAndInDataBase_String()
+    {
+        Stylist testStylist = new Stylist("Deva Jones", "123-456-7890");
+        testStylist.Save();
+
+        testStylist.Update("Delaney Jensen", "111-222-3333");
+        Stylist databaseStylist = Stylist.Find(testStylist.Id);
+
+        Assert.AreEqual("Delaney Jensen", testStylist.Name);
+        Assert.AreEqual("111-222-3333", testStylist.Phone);
+        Assert.AreEqual(testStylist, databaseStylist);
+    }
+    //Fulfills spec to update a specific stylist's info.
+
+    [TestMethod]
+    public void Delete_DeletesStylistInDatabase_Stylist()
+    {
+        Stylist testStylist = new Stylist("Deva Jones", "123-456-7890");
+        testStylist.Save();
+        Stylist testStylist2 = new Stylist("Felipe Hernandez", "971-455-6703");
+        testStylist2.Save();
+
+        testStylist.Delete();
+
+        List<Stylist> result = Stylist.GetAll();
+
+        Assert.AreEqual(testStylist2, result[0]);
     }
 
   }
