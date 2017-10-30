@@ -142,6 +142,5 @@ namespace HairSalon.Models.Tests
     }
     // Fulfills spec to search and return Clients with similar names.
 
-
   }
 }
